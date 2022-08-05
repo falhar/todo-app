@@ -1,0 +1,8 @@
+node_modules
+coverage
+
+db/*.sqlite
+
+.env
+package-lock.json
+junit.xml
