@@ -1,11 +1,11 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('toDos', {
+    await queryInterface.createTable('todos', {
       id: { allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER },
       activity_group_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'actGroups', key: 'id' },
+        references: { model: 'activities', key: 'id' },
         onDelete: 'CASCADE',
       },
       title: { type: Sequelize.STRING, allowNull: false },
@@ -21,6 +21,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('toDos');
+    await queryInterface.dropTable('todos');
   },
 };

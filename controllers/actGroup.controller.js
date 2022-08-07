@@ -1,7 +1,7 @@
-const { actGroup } = require('../models');
+const { activity } = require('../models');
 
 exports.getAllG = async (req, res) => {
-  const data = await actGroup.findAll();
+  const data = await activity.findAll();
   return res.status(200).json({
     status: 'Success',
     message: 'Success',
@@ -10,7 +10,7 @@ exports.getAllG = async (req, res) => {
 };
 
 exports.getOneG = async (req, res) => {
-  const data = await actGroup.findByPk(req.params.id);
+  const data = await activity.findByPk(req.params.id);
   if (!data) {
     return res.status(404).json({
       status: 'Not Found',
@@ -34,7 +34,7 @@ exports.createG = async (req, res) => {
       data: {},
     });
   }
-  const new_act = await actGroup.create({ title, email });
+  const new_act = await activity.create({ title, email });
   return res.status(201).json({
     status: 'Success',
     message: 'Success',
@@ -43,7 +43,7 @@ exports.createG = async (req, res) => {
 };
 
 exports.deleteG = async (req, res) => {
-  const checkExist = await actGroup.findByPk(req.params.id);
+  const checkExist = await activity.findByPk(req.params.id);
   if (!checkExist) {
     return res.status(404).json({
       status: 'Not Found',
@@ -68,7 +68,7 @@ exports.updateG = async (req, res) => {
       data: {},
     });
   }
-  const checkExist = await actGroup.findByPk(req.params.id);
+  const checkExist = await activity.findByPk(req.params.id);
   if (!checkExist) {
     return res.status(404).json({
       status: 'Not Found',

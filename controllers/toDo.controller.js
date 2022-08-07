@@ -1,4 +1,4 @@
-const { toDo, actGroup } = require('../models');
+const { todo, activity } = require('../models');
 const { transformer } = require('../services/transformer');
 
 exports.getAllT = async (req, res) => {
@@ -7,7 +7,7 @@ exports.getAllT = async (req, res) => {
   if (activity_group_id) {
     option.activity_group_id = activity_group_id;
   }
-  const data = await toDo.findAll({ where: option });
+  const data = await todo.findAll({ where: option });
   data.forEach((dt) => transformer(dt));
   return res.status(200).json({
     status: 'Success',
@@ -17,7 +17,7 @@ exports.getAllT = async (req, res) => {
 };
 
 exports.getOneT = async (req, res) => {
-  const data = await toDo.findByPk(req.params.id);
+  const data = await todo.findByPk(req.params.id);
   if (!data) {
     return res.status(404).json({
       status: 'Not Found',
@@ -46,7 +46,7 @@ exports.createT = async (req, res) => {
       message: 'title cannot be null',
     });
   }
-  const checkExist = await actGroup.findByPk(activity_group_id);
+  const checkExist = await activity.findByPk(activity_group_id);
   if (!checkExist) {
     return res.status(404).json({
       status: 'Not Found',
@@ -54,7 +54,7 @@ exports.createT = async (req, res) => {
       data: {},
     });
   }
-  const data = await toDo.create({ activity_group_id, title, is_active, priority });
+  const data = await todo.create({ activity_group_id, title, is_active, priority });
   return res.status(201).json({
     status: 'Success',
     message: 'Success',
@@ -64,7 +64,7 @@ exports.createT = async (req, res) => {
 
 exports.updateT = async (req, res) => {
   const { title, is_active, priority } = req.body;
-  const checkExist = await toDo.findByPk(req.params.id);
+  const checkExist = await todo.findByPk(req.params.id);
   if (!checkExist) {
     return res.status(404).json({
       status: 'Not Found',
@@ -81,7 +81,7 @@ exports.updateT = async (req, res) => {
 };
 
 exports.deleteT = async (req, res) => {
-  const checkExist = await toDo.findByPk(req.params.id);
+  const checkExist = await todo.findByPk(req.params.id);
   if (!checkExist) {
     return res.status(404).json({
       status: 'Not Found',

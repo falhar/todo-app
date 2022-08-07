@@ -1,7 +1,7 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class ActGroup extends Model {
+  class Activity extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,22 +9,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ActGroup.hasMany(models.toDo, { foreignKey: 'activity_group_id', onDelete: 'CASCADE' });
+      Activity.hasMany(models.todo, { foreignKey: 'activity_group_id', onDelete: 'CASCADE' });
     }
   }
-  ActGroup.init(
+  Activity.init(
     {
       email: { type: DataTypes.STRING, allowNull: false },
       title: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,
-      modelName: 'actGroup',
+      modelName: 'activity',
       createdAt: 'created_at',
       updatedAt: 'updated_at',
       deletedAt: 'deleted_at',
       paranoid: true,
     }
   );
-  return ActGroup;
+  return Activity;
 };

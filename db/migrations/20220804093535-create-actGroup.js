@@ -1,6 +1,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('actGroups', {
+    await queryInterface.createTable('activities', {
       id: { allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER },
       email: { type: Sequelize.STRING, allowNull: false },
       title: { type: Sequelize.STRING, allowNull: false },
@@ -10,6 +10,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('actGroups');
+    await queryInterface.dropTable('activities');
   },
 };
