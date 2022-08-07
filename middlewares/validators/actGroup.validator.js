@@ -13,15 +13,7 @@ module.exports = {
         gmail_remove_dots: false,
       })
       .isEmail()
-      .withMessage('email must be email address')
-      .custom(async (email) => {
-        const count = await actGroup.count({ where: { email } });
-        if (count === 1) {
-          throw new Error('email already used!');
-        } else {
-          return true;
-        }
-      }),
+      .withMessage('email must be email address'),
     handleValidationError,
   ],
   updateVG: [

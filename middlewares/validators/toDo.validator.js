@@ -5,8 +5,8 @@ module.exports = {
   getAllVT: [query('activity_group_id').notEmpty().withMessage('activity_group_id required').isInt(), handleValidationError],
   getOneOrDelVT: [param('id').notEmpty().withMessage('id required').isInt(), handleValidationError],
   createVT: [
-    body('activity_group_id').notEmpty().withMessage('activity_group_id required').isInt(),
-    body('title').notEmpty().withMessage('title required').isString(),
+    body('activity_group_id').isInt().optional(),
+    body('title').isString().optional(),
     body('is_active').isBoolean().optional(),
     body('priority').toLowerCase().isIn(['very-high', 'high', 'normal', 'low', 'very-low']).optional(),
     handleValidationError,

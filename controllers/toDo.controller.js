@@ -6,14 +6,6 @@ exports.getAllT = async (req, res) => {
   const { activity_group_id } = req.query;
   if (activity_group_id) {
     option.activity_group_id = activity_group_id;
-    const checkExist = await actGroup.findByPk(activity_group_id);
-    if (!checkExist) {
-      return res.status(404).json({
-        status: 'Not Found',
-        message: `Activity with ID ${activity_group_id} Not Found`,
-        data: {},
-      });
-    }
   }
   const data = await toDo.findAll({ where: option });
   data.forEach((dt) => transformer(dt));
@@ -29,7 +21,7 @@ exports.getOneT = async (req, res) => {
   if (!data) {
     return res.status(404).json({
       status: 'Not Found',
-      message: `Item with ID ${req.params.id} Not Found`,
+      message: `Todo with ID ${req.params.id} Not Found`,
       data: {},
     });
   }
@@ -42,6 +34,18 @@ exports.getOneT = async (req, res) => {
 
 exports.createT = async (req, res) => {
   const { activity_group_id, title, is_active, priority } = req.body;
+  if (!activity_group_id) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'activity_group_id cannot be null',
+    });
+  }
+  if (!title) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'title cannot be null',
+    });
+  }
   const checkExist = await actGroup.findByPk(activity_group_id);
   if (!checkExist) {
     return res.status(404).json({
@@ -64,7 +68,7 @@ exports.updateT = async (req, res) => {
   if (!checkExist) {
     return res.status(404).json({
       status: 'Not Found',
-      message: `Item with ID ${req.params.id} Not Found`,
+      message: `Todo with ID ${req.params.id} Not Found`,
       data: {},
     });
   }
@@ -81,7 +85,7 @@ exports.deleteT = async (req, res) => {
   if (!checkExist) {
     return res.status(404).json({
       status: 'Not Found',
-      message: `Item with ID ${req.params.id} Not Found`,
+      message: `Todo with ID ${req.params.id} Not Found`,
       data: {},
     });
   }
