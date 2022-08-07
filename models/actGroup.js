@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ActGroup.init(
     {
-      email: { type: DataTypes.STRING, allowNull: false, unique: true },
+      email: { type: DataTypes.STRING, allowNull: false },
       title: { type: DataTypes.STRING, allowNull: false },
     },
     {
